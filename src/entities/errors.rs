@@ -1,3 +1,5 @@
+use std::num::TryFromIntError;
+
 use axum::{http::StatusCode, response::IntoResponse, Json};
 use serde_json::json;
 use thiserror::Error;
@@ -14,6 +16,8 @@ pub enum AppError {
     Parsing(String),
     #[error("Access denied")]
     AccessDenied,
+    #[error("Invalid data")]
+    InvalidData,
 }
 
 impl From<sqlx::Error> for AppError {
@@ -22,10 +26,16 @@ impl From<sqlx::Error> for AppError {
     }
 }
 
+impl From<TryFromIntError> for AppError {
+    fn from(_: TryFromIntError) -> Self {
+        Self::InvalidData
+    }
+}
+
 impl IntoResponse for AppError {
     fn into_response(self) -> axum::response::Response {
         let (status, message) = match self {
-            AppError::Database | AppError::Network => {
+            AppError::Database | AppError::Network | AppError::InvalidData => {
                 (StatusCode::INTERNAL_SERVER_ERROR, self.to_string())
             }
             AppError::AccessDenied => (StatusCode::FORBIDDEN, self.to_string()),

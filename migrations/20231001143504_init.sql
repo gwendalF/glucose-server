@@ -35,11 +35,11 @@ CREATE TABLE IF NOT EXISTS provider_user_mapper(
 
 CREATE TABLE cgm_values (
     time TIMESTAMPTZ NOT NULL,
-    type VARCHAR(32) NOT NULL,
+    raw_type VARCHAR(32) NOT NULL,
     date BIGINT NOT NULL CHECK (date > 0),
     sgv SMALLINT NOT NULL CHECK (sgv > 0),
-    direction VARCHAR(32),
-    noise SMALLINT CHECK (ABS(noise) < 45),
+    direction VARCHAR(32) NOT NULL,
+    noise SMALLINT CHECK (ABS(noise) < 45) NOT NULL,
     user_id BIGINT NOT NULL REFERENCES user_account(id)
 );
 
