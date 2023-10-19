@@ -2,6 +2,8 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use sha1_smol::Digest;
 
+pub mod errors;
+
 #[derive(Deserialize, Serialize)]
 pub struct GlucoseMeasure {
     #[serde(rename = "type")]

@@ -1,8 +1,5 @@
 use crate::services::{auth_middleware, AppState};
-use axum::{
-    routing::{get, post},
-    Router,
-};
+use axum::{routing::post, Router};
 mod nightscout;
 
 pub fn get_router(state: AppState) -> Router {
