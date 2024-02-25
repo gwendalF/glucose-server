@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 tokio = { version = "1.33", features = ["macros", "rt-multi-thread"] }
-axum = "0.6.20"
+axum = "0.7.4"
 serde = { version = "1.0.189", features = ["derive"] }
 chrono = { version = "0.4.31", features = ["serde"] }
 sqlx = { version = "0.7.2", features = [
@@ -23,6 +23,11 @@ config = "0.13.3"
 sha1_smol = "1.0.0"
 serde_json = "1.0.107"
 futures = "0.3.28"
+askama = "0.12.1"
+axum_static = "1.2.3"
+tower = "0.4.13"
+tower-http = { version = "0.5.1", features = ["fs"] }
+tower-livereload = "0.9.2"
 
 [dev-dependencies]
-axum-macros = "0.3.8"
+axum-macros = "0.4.1"

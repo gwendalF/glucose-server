@@ -1,8 +1,8 @@
 use super::AppState;
 use crate::entities::ServerSecret;
 use axum::{
-    extract::State,
-    http::{Request, StatusCode},
+    extract::{Request, State},
+    http::StatusCode,
     middleware::Next,
     response::Response,
 };
@@ -13,10 +13,10 @@ fn valid_secret(secret: &Digest, server_secret: &ServerSecret) -> bool {
     server_secret == secret
 }
 
-pub async fn auth_middleware<B>(
+pub async fn auth_middleware(
     State(service): State<AppState>,
-    request: Request<B>,
-    next: Next<B>,
+    request: Request,
+    next: Next,
 ) -> Result<Response, StatusCode> {
     let mut authorized = false;
     if let Some(data) = request.headers().get("api-secret") {
